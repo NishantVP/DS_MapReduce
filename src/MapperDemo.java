@@ -36,6 +36,32 @@ public class MapperDemo implements Runnable {
 		System.out.println("MAP OUTPUT STREAM = "+mapStream);
 		return mylist;
 	}
+	
+	public String mapAndriod(String mapInput){
+		
+		 mylist = new ArrayList<MapOutputClass>();
+		 myMap = new HashMap<String,Integer>();
+		 mapStream = new StringBuilder();
+		 System.out.println("MAP INPUT STREAM = "+chunkString);
+		String[] buffer = chunkString.split(" ");
+		for(int i=0;i<buffer.length;i++){
+			mylist.add(new MapOutputClass(buffer[i],new Integer(1)));
+		//	System.out.println(mylist.get(i).getStringKey() +":" + mylist.get(i).getIntegerValue());
+			mapStream.append(mylist.get(i).getStringKey()+"="+mylist.get(i).getIntegerValue()+",");
+			
+		}
+		
+		
+		System.out.println("MAP OUTPUT STREAM = "+mapStream);
+		return mapStream.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public void run() {
