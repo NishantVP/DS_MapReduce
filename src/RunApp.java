@@ -12,25 +12,18 @@ public class RunApp {
 		
 		// did not call the start method. Hence the thread is just created. It wont run and it has not started
 		
-		//r1.start();
 		MapperDemo m1 = new MapperDemo(str1);
 		m1.start();
 		
 		MapperDemo m2 = new MapperDemo(str2);
 		m2.start();
 		
-		//Shuffler s1 = new Shuffler(str1);
-	
+		Shuffler.combineStreams("sneha=1,shirsat=1,is=1,a=1,schmurrr=1,the=1,furr=1,example=1,");
+		Shuffler.combineStreams("achmirr=1,duufuuj=1,");
+		Shuffler.combineStreams("This=1,is=1,dummy=1,summy=1,sunny=1,bunny=1,string=1,");
 		
-		
-		
-		
-		
-	//	Set set = (Set) m1.map("this is just a string that I am passing").entrySet();
-		
-
-		
-		
-		
+		System.out.println("_____________________");
+		System.out.println("Shuffler output === ");
+		System.out.println(Shuffler.getShufflerOutput());
 	}
 }

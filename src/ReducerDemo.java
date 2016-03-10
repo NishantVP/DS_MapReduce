@@ -43,6 +43,39 @@ public class ReducerDemo implements Runnable {
 		return input;
 	}
 	
+	public String reduceAndroid(){
+		fromMapper = new ArrayList<MapOutputClass>();
+		System.out.println("REDUCER INPUT STREAM = "+inputStream.toString());
+		String[] buffer = inputStream.toString().split(",");
+		String[]redKeyval;
+		for(int i=0;i<buffer.length;i++){
+			redKeyval = buffer[i].split("=");
+			fromMapper.add(new MapOutputClass(redKeyval[0],new Integer(redKeyval[1])));
+			
+		}
+		
+		Iterator itr = fromMapper.iterator();
+		input = new HashMap<String,Integer>();
+		while(itr.hasNext()){
+			MapOutputClass tempo = (MapOutputClass) itr.next();
+			String tempstr =tempo.getStringKey();
+			if(input.containsKey(tempstr)){
+				Integer count = (Integer) input.get(tempstr);
+				count++;
+				input.put(tempstr, count);
+			}
+			else{
+				input.put(tempstr, 1);
+			}
+			
+		}
+		
+		return buildStream().toString();
+	}
+	
+	
+	
+	
 	public StringBuilder buildStream(){
 		stream = new StringBuilder();
 		Set mapEntry = input.entrySet();
@@ -56,18 +89,12 @@ public class ReducerDemo implements Runnable {
 		return stream;
 		
 	}
-	
-//	public void shuffler(){
-//		buildStream();
-//	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
 		System.out.println("Running Reducer Thread...");
 		reduce();
-		//shuffler();
-		
 		
 	}
 	public void start(){

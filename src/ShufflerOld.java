@@ -1,21 +1,26 @@
 import java.util.*;
-public class Shuffler {
+public class ShufflerOld {
 
 	
-	private static List<MapOutputClass> list;
-	private static HashMap map;
-	private static List<MyPair> listPair;
+	public String data;
+	public List<MapOutputClass> list;
+	public HashMap map;
+	public StringBuilder comboMapOuts;
+	public List<MyPair> listPair;
+	public StringBuilder shufflerSortedOutput;
 	
-	private static StringBuilder shufflerSortedOutput;
-	private static StringBuilder mapSoFar = new StringBuilder();
+	public String str1="this=1,schmurr=1,abosis=1,is=1,part1=1,";
+	public String str2= "catalini=1,this=1,schmurr=1,the=1,fuurr=1,is=1,part2=1,";
+	
+	
 
-	public static void combineStreams(String addStr){
-		
+	public void combineStreams(){
 		listPair = new ArrayList<MyPair>();
+		comboMapOuts = new StringBuilder();
 		shufflerSortedOutput = new StringBuilder();
-		mapSoFar.append(addStr);
+		comboMapOuts.append(str1).append(str2);
 		map = new HashMap<String,Integer>();
-		String[] buffer = mapSoFar.toString().split(",");
+		String[] buffer = comboMapOuts.toString().split(",");
 		
 		String[]keyVal = null;
 		for(int i=0;i<buffer.length;i++){
@@ -40,7 +45,7 @@ public class Shuffler {
 					return 1;
 				}
 				else{
-					return mp1.key.toUpperCase().compareTo(mp2.key.toUpperCase());
+					return mp1.key.compareTo(mp2.key);
 					
 				}
 				
@@ -51,9 +56,15 @@ public class Shuffler {
 		for(int i=0;i<listPair.size();i++){
 			shufflerSortedOutput.append(listPair.get(i).getKey()+"="+listPair.get(i).getInteger()+",");
 		}
+		System.out.println("SHUFFLER OUTPUT STREAM = "+shufflerSortedOutput);
 	}
-
-	public static String getShufflerOutput(){
-		return shufflerSortedOutput.toString();
+	
+	public void sortMapOut(){
+		
+	}
+	public static void main(String[] args){
+		ShufflerOld s1 = new ShufflerOld();
+		s1.combineStreams();
+		
 	}
 }
